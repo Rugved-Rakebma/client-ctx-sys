@@ -1,0 +1,10 @@
+{
+  "name": "k-base",
+  "version": "0.2.0",
+  "description": "Per-project knowledge base with DB-first storage, meeting ingestion, and full-text search.",
+  "author": { "name": "Rugved Ambekar" },
+  "license": "MIT",
+  "keywords": ["knowledge-base", "meetings", "fireflies", "semantic-search"],
+  "skills": "./skills/",
+  "hooks": "./hooks/hooks.json"
+}

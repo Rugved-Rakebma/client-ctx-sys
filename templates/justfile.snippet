@@ -1,0 +1,29 @@
+set dotenv-load
+
+# ─── Knowledge Base ───
+
+kb_cli := "python3 ~/Code/knowledge-base/cli/kb.py"
+
+kb *ARGS:
+    {{kb_cli}} {{ARGS}}
+
+kb-init:
+    {{kb_cli}} init
+
+kb-status:
+    {{kb_cli}} status
+
+kb-list *ARGS:
+    {{kb_cli}} list {{ARGS}}
+
+kb-get PATH:
+    {{kb_cli}} get "{{PATH}}"
+
+kb-add *ARGS:
+    {{kb_cli}} add {{ARGS}}
+
+kb-search QUERY:
+    {{kb_cli}} search "{{QUERY}}"
+
+kb-pull-fireflies *ARGS:
+    {{kb_cli}} pull-fireflies {{ARGS}}

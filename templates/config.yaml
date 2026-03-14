@@ -1,0 +1,5 @@
+project: "{project_name}"
+created: "{created_date}"
+
+fireflies:
+  api_key_env: FIREFLIES_API_KEY
