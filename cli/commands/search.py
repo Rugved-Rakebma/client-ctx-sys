@@ -32,7 +32,7 @@ def search(ctx: click.Context, query: str, entity_type: Optional[str], limit: in
         # Try FTS5 search first — add prefix wildcards for partial matching
         fts_query = " ".join("{}*".format(w) for w in query.split() if w)
         fts_sql = """
-            SELECT e.id, e.type, e.slug, e.title, e.content, entities_fts.rank
+            SELECT e.id, e.type, e.slug, e.title, e.content, e.status, entities_fts.rank
             FROM entities_fts
             JOIN entities e ON e.id = entities_fts.rowid
             WHERE entities_fts MATCH ?
@@ -51,6 +51,7 @@ def search(ctx: click.Context, query: str, entity_type: Optional[str], limit: in
                 "type": row["type"],
                 "slug": row["slug"],
                 "title": row["title"],
+                "status": row["status"],
                 "score": round(abs(row["rank"]), 4) if row["rank"] else 0.0,
                 "snippet": snippet,
             })
@@ -68,7 +69,7 @@ def search(ctx: click.Context, query: str, entity_type: Optional[str], limit: in
         words = query.split()
         for word in words:
             like_sql = """
-                SELECT id, type, slug, title, content
+                SELECT id, type, slug, title, content, status
                 FROM entities
                 WHERE title LIKE ? OR content LIKE ?
                 LIMIT ?
@@ -89,6 +90,7 @@ def search(ctx: click.Context, query: str, entity_type: Optional[str], limit: in
                     "type": row["type"],
                     "slug": row["slug"],
                     "title": row["title"],
+                    "status": row["status"],
                     "score": 0.0,
                     "snippet": snippet,
                 })

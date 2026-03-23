@@ -17,6 +17,7 @@ just kb-status          # DB stats
 just kb-search "query"  # Full-text search
 just kb-list            # List all entities
 just kb-list --type decisions  # Filter by type
+just kb-list --type action-items --status open  # Open action items
 just kb-get "type/slug" # Read one entity
 just kb-add '<json>'    # Add entities (used by skills, not directly)
 ```

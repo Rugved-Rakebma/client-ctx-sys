@@ -12,14 +12,18 @@ from cli.db.schema import get_db
 
 @click.command("list")
 @click.option("--type", "entity_type", default=None, help="Filter by entity type.")
+@click.option("--status", "status", default=None, help="Filter by status (e.g., open, completed).")
 @click.option("--source-id", default=None, type=int, help="Filter by source ID.")
+@click.option("--snippet", is_flag=True, default=False, help="Include content snippet.")
 @click.option("--limit", default=50, type=int, help="Max results to return.")
 @click.option("--offset", default=0, type=int, help="Offset for pagination.")
 @click.pass_context
 def list_cmd(
     ctx: click.Context,
     entity_type: Optional[str],
+    status: Optional[str],
     source_id: Optional[int],
+    snippet: bool,
     limit: int,
     offset: int,
 ) -> None:
@@ -41,6 +45,9 @@ def list_cmd(
         if entity_type:
             where_clauses.append("type = ?")
             params.append(entity_type)
+        if status:
+            where_clauses.append("status = ?")
+            params.append(status)
         if source_id is not None:
             where_clauses.append("source_id = ?")
             params.append(source_id)
@@ -54,19 +61,25 @@ def list_cmd(
         total = conn.execute(count_sql, params).fetchone()[0]
 
         # Get paginated results
-        query_sql = "SELECT id, type, slug, title, updated FROM entities {} ORDER BY updated DESC LIMIT ? OFFSET ?".format(where_sql)
+        select_cols = "id, type, slug, title, status, updated"
+        if snippet:
+            select_cols += ", content"
+        query_sql = "SELECT {} FROM entities {} ORDER BY updated DESC LIMIT ? OFFSET ?".format(select_cols, where_sql)
         rows = conn.execute(query_sql, params + [limit, offset]).fetchall()
 
-        entities = [
-            {
+        entities = []  # type: List[Dict[str, Any]]
+        for row in rows:
+            entry = {
                 "id": row["id"],
                 "type": row["type"],
                 "slug": row["slug"],
                 "title": row["title"],
+                "status": row["status"],
                 "updated": row["updated"],
-            }
-            for row in rows
-        ]
+            }  # type: Dict[str, Any]
+            if snippet:
+                entry["snippet"] = (row["content"] or "")[:200]
+            entities.append(entry)
 
         click.echo(json.dumps({
             "entities": entities,

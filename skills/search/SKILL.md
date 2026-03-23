@@ -15,6 +15,8 @@ argument-hint: "<your question>"
 
 ## Flow
 
+0. **Status-aware shortcut:** If the question is about what's outstanding, open, pending, or incomplete (e.g., "what action items are open?"), skip FTS and run `just kb-list --type action-items --status open` instead. Read and present the results directly.
+
 1. Break the user's question into 2-4 targeted search queries. Don't pass the raw question as one search — decompose it into specific terms and concepts.
    - Example: "What did we decide about auth and why?" → search for "auth", "authentication", "OAuth", "SSO"
 2. Run `just kb-search "<query>"` for each targeted query.
@@ -33,3 +35,4 @@ argument-hint: "<your question>"
 - No suggestions to ingest more content.
 - Fast: search, read, answer.
 - Cite sources.
+- Search results include entity status (open, completed, etc.) — mention it when relevant to the user's question.

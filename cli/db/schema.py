@@ -3,7 +3,7 @@ from __future__ import annotations
 import sqlite3
 from typing import Optional
 
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 
 SCHEMA_SQL = """
 -- Ingestion tracking
@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS entities (
     slug TEXT NOT NULL,
     title TEXT NOT NULL,
     content TEXT NOT NULL,
+    status TEXT,
     source_id INTEGER,
     created TEXT NOT NULL,
     updated TEXT NOT NULL,
@@ -95,6 +96,23 @@ END;
 """
 
 
+def _migrate(conn: sqlite3.Connection) -> None:
+    """Run migrations from current version to SCHEMA_VERSION."""
+    row = conn.execute("SELECT MAX(version) FROM schema_version").fetchone()
+    current = row[0] if row[0] is not None else 0
+
+    if current < 2:
+        # v1 → v2: add status column to entities
+        cols = [r[1] for r in conn.execute("PRAGMA table_info(entities)").fetchall()]
+        if "status" not in cols:
+            conn.execute("ALTER TABLE entities ADD COLUMN status TEXT")
+
+    if current < SCHEMA_VERSION:
+        conn.execute("DELETE FROM schema_version")
+        conn.execute("INSERT INTO schema_version (version) VALUES (?)", (SCHEMA_VERSION,))
+        conn.commit()
+
+
 def init_db(db_path: str) -> sqlite3.Connection:
     """Create tables if not exist, run migrations, return connection."""
     conn = sqlite3.connect(db_path)
@@ -112,19 +130,17 @@ def init_db(db_path: str) -> sqlite3.Connection:
 
     conn.executescript(TRIGGERS_SQL)
 
-    # Set schema version if not present
-    row = conn.execute("SELECT MAX(version) FROM schema_version").fetchone()
-    if row[0] is None:
-        conn.execute("INSERT INTO schema_version (version) VALUES (?)", (SCHEMA_VERSION,))
+    _migrate(conn)
 
     conn.commit()
     return conn
 
 
 def get_db(db_path: str) -> sqlite3.Connection:
-    """Return a connection with foreign keys enabled and row_factory set."""
+    """Return a connection with foreign keys enabled and row_factory set. Runs migrations."""
     conn = sqlite3.connect(db_path)
     conn.execute("PRAGMA foreign_keys = ON")
     conn.execute("PRAGMA journal_mode = WAL")
     conn.row_factory = sqlite3.Row
+    _migrate(conn)
     return conn

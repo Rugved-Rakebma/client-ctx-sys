@@ -29,7 +29,8 @@ def add(ctx: click.Context, json_input: str) -> None:
 
     # Parse input — either a file path or inline JSON
     json_path = Path(json_input)
-    if json_path.exists() and json_path.is_file():
+    input_was_file = json_path.exists() and json_path.is_file()
+    if input_was_file:
         try:
             data = json.loads(json_path.read_text())
         except json.JSONDecodeError as e:
@@ -76,6 +77,7 @@ def add(ctx: click.Context, json_input: str) -> None:
             slug = entity["slug"]
             title = entity["title"]
             content = entity.get("content", "")
+            status = entity.get("status")
 
             # Try insert, on conflict update
             existing = conn.execute(
@@ -86,17 +88,17 @@ def add(ctx: click.Context, json_input: str) -> None:
             if existing:
                 entity_id = existing["id"]
                 conn.execute(
-                    "UPDATE entities SET title = ?, content = ?, source_id = COALESCE(?, source_id), updated = ? WHERE id = ?",
-                    (title, content, source_id, today, entity_id),
+                    "UPDATE entities SET title = ?, content = ?, source_id = COALESCE(?, source_id), status = COALESCE(?, status), updated = ? WHERE id = ?",
+                    (title, content, source_id, status, today, entity_id),
                 )
-                entity_results.append({"type": etype, "slug": slug, "action": "updated", "id": entity_id})
+                entity_results.append({"type": etype, "slug": slug, "action": "updated", "id": entity_id, "status": status})
             else:
                 cur = conn.execute(
-                    "INSERT INTO entities (type, slug, title, content, source_id, created, updated) VALUES (?, ?, ?, ?, ?, ?, ?)",
-                    (etype, slug, title, content, source_id, today, today),
+                    "INSERT INTO entities (type, slug, title, content, status, source_id, created, updated) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                    (etype, slug, title, content, status, source_id, today, today),
                 )
                 entity_id = cur.lastrowid
-                entity_results.append({"type": etype, "slug": slug, "action": "created", "id": entity_id})
+                entity_results.append({"type": etype, "slug": slug, "action": "created", "id": entity_id, "status": status})
 
         # --- People ---
         people = data.get("people", [])
@@ -187,6 +189,10 @@ def add(ctx: click.Context, json_input: str) -> None:
                 )
 
         conn.commit()
+
+        # Clear staging file after successful write
+        if input_was_file:
+            json_path.write_text("")
 
         result = {
             "entities": entity_results,

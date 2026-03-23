@@ -1,0 +1,13 @@
+{
+  "name": "rugved-tools",
+  "owner": {
+    "name": "Rugved Ambekar"
+  },
+  "plugins": [
+    {
+      "name": "k-base",
+      "source": "./",
+      "description": "Per-project knowledge base with DB-first storage, meeting ingestion, and full-text search."
+    }
+  ]
+}

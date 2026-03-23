@@ -53,6 +53,8 @@ From the meeting content, extract entities following the guidelines in `referenc
 
 Entity types emerge from content. Common types: `decisions`, `action-items`, `requirements`, `strategies`. Use what fits.
 
+**Action item status:** New action items always get `"status": "open"`. When cross-referencing reveals an existing action item that the meeting resolves or completes, include it in the same staging batch with `"status": "completed"` and updated content reflecting how it was resolved.
+
 ### Step 2: Propose meeting doc
 
 Propose filing a clean meeting summary at:
@@ -93,7 +95,9 @@ Present everything for approval in ONE list:
     "original_source": "fireflies-url"
   },
   "entities": [
-    { "type": "decisions", "slug": "my-slug", "title": "Title", "content": "Full content..." }
+    { "type": "decisions", "slug": "my-slug", "title": "Title", "content": "Full content..." },
+    { "type": "action-items", "slug": "new-task", "title": "New Task", "content": "Details...", "status": "open" },
+    { "type": "action-items", "slug": "old-task", "title": "Old Task — Completed", "content": "Resolved in this meeting because...", "status": "completed" }
   ],
   "people": [
     { "name": "Jane Doe", "slug": "jane-doe", "role": "Engineer", "org": "Acme" }
@@ -101,7 +105,7 @@ Present everything for approval in ONE list:
 }
 ```
 
-If the JSON is large, write it to `.knowledge-base/.staging.json` and run `just kb-add .knowledge-base/.staging.json`.
+**Always** write the JSON to `.knowledge-base/.staging.json` and run `just kb-add .knowledge-base/.staging.json`. Never pass JSON inline on the command line. The CLI clears the staging file automatically after a successful write.
 
 **4b. Meeting doc** — Write the meeting summary to `.knowledge-base/docs/meetings/YYYY-MM-DD-slug.md`.
 

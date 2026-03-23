@@ -33,7 +33,7 @@ def get(ctx: click.Context, path: Optional[str], entity_id: Optional[int]) -> No
         # Fetch entity
         if entity_id is not None:
             row = conn.execute(
-                "SELECT id, type, slug, title, content, source_id, created, updated FROM entities WHERE id = ?",
+                "SELECT id, type, slug, title, content, status, source_id, created, updated FROM entities WHERE id = ?",
                 (entity_id,),
             ).fetchone()
         else:
@@ -44,7 +44,7 @@ def get(ctx: click.Context, path: Optional[str], entity_id: Optional[int]) -> No
                 sys.exit(1)
             etype, slug = parts
             row = conn.execute(
-                "SELECT id, type, slug, title, content, source_id, created, updated FROM entities WHERE type = ? AND slug = ?",
+                "SELECT id, type, slug, title, content, status, source_id, created, updated FROM entities WHERE type = ? AND slug = ?",
                 (etype, slug),
             ).fetchone()
 
@@ -58,6 +58,7 @@ def get(ctx: click.Context, path: Optional[str], entity_id: Optional[int]) -> No
             "slug": row["slug"],
             "title": row["title"],
             "content": row["content"],
+            "status": row["status"],
             "created": row["created"],
             "updated": row["updated"],
         }  # type: Dict[str, Any]

@@ -29,8 +29,8 @@ All CLI commands emit JSON to stdout. Human-readable output goes to stderr. This
 | Command | Purpose |
 |---------|---------|
 | `kb init` | Scaffold `.knowledge-base/` with DB |
-| `kb status` | Entity counts, people, sources, DB size |
-| `kb list [--type TYPE]` | List entities with optional filter |
+| `kb status` | Entity counts, people, sources, DB size, open action items |
+| `kb list [--type TYPE] [--status STATUS]` | List entities with optional type/status filter |
 | `kb get <type/slug>` | Read one entity |
 | `kb add <json>` | Insert/update entities, people, relations |
 | `kb search "<query>"` | Full-text search with BM25 ranking |
