@@ -159,3 +159,14 @@ The `context-prime` skill (model-invocable) supports this by silently loading co
 
 **Quick check-in:**
 `/ctx:status` → open items, recent activity → decide what to work on
+
+## Obsidian Integration (Optional)
+
+If the `obsidian` plugin is installed, the context system gains enhanced capabilities:
+
+- **Dashboard** (`dashboard.base`) — Live queryable views of action items, decisions, people, and meetings. Auto-updates as entity pages change. Created by `/ctx:init`.
+- **Markdown quality** — Entity pages use Obsidian-flavored markdown conventions (callouts, block IDs, embeds) when creating/updating pages via ingest, convo, or context-update.
+- **Canvas graphs** — `/ctx:prime` can generate visual knowledge graphs for projects as `.canvas` files.
+- **Web content** — `/ctx:catalog` uses Defuddle for clean markdown extraction from web pages.
+
+All of these are optional. The system works identically without the obsidian plugin — you just get plain markdown files instead of enhanced Obsidian features.

@@ -59,7 +59,7 @@ For each item, explain briefly WHY it's vault-worthy (what makes it durable and 
 ## Step 5: Apply (on approval)
 
 Write all changes:
-1. Create new entity pages with proper frontmatter and wikilinks
+1. Create new entity pages with proper frontmatter and wikilinks. Use Obsidian-flavored markdown conventions (`obsidian:obsidian-markdown` skill) if available; standard markdown with `[[wikilink]]` syntax otherwise.
 2. Update existing entity pages (preserve existing content, add new context)
 3. Update project context pages — add new wikilinks in correct sections
 4. Update people pages if needed

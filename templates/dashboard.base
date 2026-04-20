@@ -1,0 +1,51 @@
+formulas:
+  age_days: '(now() - date(created)).days'
+
+views:
+  - type: table
+    name: "Open Action Items"
+    filters:
+      and:
+        - file.inFolder("action-items")
+        - 'status == "open"'
+        - not:
+            - file.inFolder("action-items/closed")
+    order:
+      - title
+      - slug
+      - created
+      - formula.age_days
+    groupBy:
+      property: slug
+      direction: ASC
+
+  - type: table
+    name: "Decisions"
+    filters:
+      and:
+        - file.inFolder("decisions")
+        - not:
+            - file.inFolder("decisions/closed")
+    order:
+      - title
+      - slug
+      - source
+      - created
+
+  - type: table
+    name: "People"
+    filters:
+      file.inFolder("people")
+    order:
+      - title
+      - role
+      - org
+
+  - type: table
+    name: "Recent Meetings"
+    filters:
+      file.inFolder("docs/meetings")
+    order:
+      - title
+      - date
+      - source

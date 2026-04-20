@@ -83,7 +83,7 @@ Present everything for approval in ONE list:
 
 ### Step 5: Write (on approval)
 
-1. **Entity pages** — Write to `context-vault/{type}/{slug}.md` with frontmatter, content, and Links section (source, assignees, related entities from same meeting)
+1. **Entity pages** — Write to `context-vault/{type}/{slug}.md` with frontmatter, content, and Links section (source, assignees, related entities from same meeting). Use Obsidian-flavored markdown conventions (`obsidian:obsidian-markdown` skill) if available; standard markdown with `[[wikilink]]` syntax otherwise.
 
 2. **Meeting doc** — Write with content + Knowledge Graph section (wikilinks to all entities + participant links)
 

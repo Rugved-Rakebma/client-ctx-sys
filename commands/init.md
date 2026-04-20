@@ -39,10 +39,13 @@ context-vault/
 │   ├── client-docs/
 │   └── deliverables/
 ├── config.yaml           # From template, with project name filled in
+├── dashboard.base        # Obsidian live dashboard (4 views — works if Obsidian Bases plugin installed)
 └── .gitignore            # Excludes raw/
 ```
 
-If `context-vault/` already exists, skip and report "vault already exists."
+If `context-vault/` already exists but `dashboard.base` is missing, create it from the template.
+
+If `context-vault/` already exists and `dashboard.base` exists, skip.
 
 ### 3. Filesystem audit
 

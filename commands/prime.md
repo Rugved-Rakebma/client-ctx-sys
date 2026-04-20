@@ -106,6 +106,17 @@ Read the most relevant matching files (cap at 10). Understand how the topic conn
 
 ---
 
-### 4. Offer to go deeper
+### 4. Offer canvas generation (optional)
+
+If priming on a **project** and the `obsidian:json-canvas` skill is available, offer to generate or update a project canvas at `context-vault/projects/{slug}/{slug}-graph.canvas`. The canvas visualizes the project knowledge graph:
+- Center node: project context page (file node)
+- Connected decision nodes (color 4 — green)
+- Connected open action-item nodes (color 1 — red)
+- Connected people nodes (color 5 — purple)
+- Connected meeting nodes (color 6 — gray)
+
+If the skill is not available, skip this offer entirely.
+
+### 5. Offer to go deeper
 
 After presenting the briefing, ask if the user wants to dive into any specific entity, person, meeting, or document from the results.

@@ -123,25 +123,20 @@ For each project context page, check the "Related Projects" section:
 
 Keep the active context lean. Move completed/superseded items out of the hot path.
 
-### 4a. Archive completed action items
+### 4a. Close completed action items
 
 - Collect all action items with `status: "completed"`
-- Move them to `context-vault/archive/completed-actions.md` — a single document with a table:
+- Create `context-vault/action-items/closed/` if it doesn't exist
+- Move completed files to `action-items/closed/` — files keep their full content, frontmatter, and wikilinks intact
+- Wikilinks from project context pages still resolve (Obsidian finds files regardless of subdirectory)
+- No content rewriting needed
+- `dashboard.base` views auto-update — filters exclude `closed/` subfolders, so no manual index rebuild needed for Obsidian users
 
-```markdown
-| Slug | Title | Owner | Completed | Source |
-```
-
-- Remove completed items from project context pages' "Completed" sections
-- Replace with a one-line reference: `> N completed items — see [[archive/completed-actions|archive]]`
-- Delete the individual completed action-item files (the archive preserves the record)
-
-### 4b. Archive superseded decisions
+### 4b. Close superseded decisions
 
 - Find decisions whose content mentions "superseded", "replaced by", or are marked superseded in project context pages
-- Move to `context-vault/archive/superseded-decisions.md` (same table format)
-- Update project context pages — remove the superseded entry, note the replacement
-- Delete the individual superseded decision files
+- Create `context-vault/decisions/closed/` if it doesn't exist
+- Move superseded files to `decisions/closed/` — same approach as action items
 
 ### 4c. Clean redirect stubs
 

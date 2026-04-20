@@ -12,7 +12,14 @@ File a document into the context vault with proper frontmatter and wikilinks to 
 
 ### 1. Read the source document
 
-Read the file at the given path. Determine its nature:
+If the argument is a URL (starts with `http`):
+- Use the `obsidian:defuddle` skill to extract clean markdown if available
+- Otherwise use WebFetch to read the page content
+- Proceed with the extracted content as the document to catalog
+
+If the argument is a file path, read the file directly.
+
+Determine its nature:
 - Client document (sent by client, external)
 - Deliverable (produced by us for the client)
 - Research (technical research, reference material)
