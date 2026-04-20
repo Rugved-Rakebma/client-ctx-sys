@@ -34,5 +34,5 @@ All scripts use Python 3.9.6 stdlib only (no pip dependencies).
 ## Testing
 
 ```
-claude --plugin-dir ~/Code/knowledge-base
+claude --plugin-dir ~/Code/client-ctx-sys
 ```
