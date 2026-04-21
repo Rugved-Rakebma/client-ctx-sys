@@ -22,7 +22,7 @@ Ingest a Fireflies meeting transcript into the context vault. Extracts entities,
 
 If the argument contains `app.fireflies.ai`:
 
-1. Run `python3 ~/Code/client-ctx-sys/scripts/pull-fireflies.py --url "<url>"`
+1. Run `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/pull-fireflies.py --url "<url>"`
 2. Use the CLI output — it contains the structured summary
 3. Do NOT read the raw JSON file. Entity extraction uses the summary only.
 
@@ -30,7 +30,7 @@ If the argument contains `app.fireflies.ai`:
 
 If the argument is `--latest`:
 
-1. Run `python3 ~/Code/client-ctx-sys/scripts/pull-fireflies.py --latest`
+1. Run `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/pull-fireflies.py --latest`
 2. Same as URL path.
 
 ## Workflow

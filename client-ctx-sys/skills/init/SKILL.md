@@ -1,11 +1,15 @@
 ---
+name: init
 description: Initialize the context system in a client project
 disable-model-invocation: true
+allowed-tools: Bash, Read, Write, Edit, Glob, Grep
 ---
 
 # Context Init
 
 Set up the client context system in the current project. Idempotent — safe to run on both fresh projects and projects with existing context vaults.
+
+Templates for scaffolding live alongside this skill in `templates/`.
 
 ## Workflow
 
@@ -38,12 +42,12 @@ context-vault/
 │   ├── meetings/
 │   ├── client-docs/
 │   └── deliverables/
-├── config.yaml           # From template, with project name filled in
-├── dashboard.base        # Obsidian live dashboard (4 views — works if Obsidian Bases plugin installed)
-└── .gitignore            # Excludes raw/
+├── config.yaml           # From templates/config.yaml, with project name filled in
+├── dashboard.base        # From templates/dashboard.base
+└── .gitignore            # From templates/gitignore
 ```
 
-If `context-vault/` already exists but `dashboard.base` is missing, create it from the template.
+If `context-vault/` already exists but `dashboard.base` is missing, create it from `templates/dashboard.base`.
 
 If `context-vault/` already exists and `dashboard.base` exists, skip.
 
@@ -66,7 +70,7 @@ Report the audit results before proceeding.
 
 ### 4. Install the always-loaded rule
 
-If `.claude/rules/context-vault.md` does not exist, copy from the plugin template. This rule has empty frontmatter (no `paths:`) so it loads every session.
+If `.claude/rules/context-vault.md` does not exist, copy from `templates/context-vault-rule.md`. This rule has empty frontmatter (no `paths:`) so it loads every session.
 
 If it already exists, skip.
 
@@ -76,16 +80,16 @@ For each valid project from the audit (both vault + physical dir):
 
 If `.claude/rules/project-{slug}.md` does not already exist:
 - Read the project context page to get the title
-- Write `.claude/rules/project-{slug}.md` with `paths:` scoped to `projects/{slug}/**/*`
+- Write `.claude/rules/project-{slug}.md` using `templates/project-prime-rule.md` as the base, with `paths:` scoped to `projects/{slug}/**/*`
 - Reference the actual detected filename in the rule body
 
 Report how many project rules were created.
 
 ### 6. Update CLAUDE.md
 
-If `CLAUDE.md` does not exist, create it with the Context Vault section from the plugin template.
+If `CLAUDE.md` does not exist, create it with the Context Vault section from `templates/claude-ctx-section.md`.
 
-If `CLAUDE.md` exists but does not contain a "## Context Vault" section, append the section from the plugin template.
+If `CLAUDE.md` exists but does not contain a "## Context Vault" section, append the section from `templates/claude-ctx-section.md`.
 
 If it already contains the section, replace ONLY that section (from `## Context Vault` to the next `## ` heading or end of file) with the latest template. This ensures the section stays current without touching other content.
 
@@ -97,12 +101,12 @@ Read `.claude/settings.json` (or `.claude/settings.local.json`). If no `statusLi
 {
   "statusLine": {
     "type": "command",
-    "command": "python3 ~/.claude/plugins/cache/rugved-tools/client-ctx-sys/*/scripts/statusline.py context-vault/"
+    "command": "python3 ${CLAUDE_PLUGIN_ROOT}/scripts/statusline.py context-vault/"
   }
 }
 ```
 
-The shell glob `*` matches the version directory in the plugin cache. The script runs directly from the installed plugin — no copying needed.
+`${CLAUDE_PLUGIN_ROOT}` resolves to this plugin's installed path. The model sees the concrete path and writes it into settings.json.
 
 If the file already has other settings, merge the `statusLine` key without overwriting existing config. If a `statusLine` config already exists, skip.
 

@@ -7,17 +7,20 @@ File-first wiki system for client project context management. No database. Claud
 Two layers:
 
 1. **Commands** (`/ctx:*`) — User-invocable workflows in `commands/`. Flat `.md` files. The plugin name `"ctx"` creates the `/ctx:` prefix.
-2. **Skills** — Model-invocable only in `skills/`. Each skill is a directory with `SKILL.md`. Claude uses them proactively.
+2. **Skills** — In `skills/`. Each skill is a directory with `SKILL.md`. Can be user-invocable (`user-invocable: true`) or model-invocable only (`user-invocable: false`).
 
 **Context vault is the store.** All entities live as markdown files in `context-vault/` in the target project. Obsidian-compatible wikilinks connect everything.
 
 ## Plugin Structure
 
 ```
-commands/           # /ctx:init, /ctx:prime, /ctx:project, /ctx:ingest, /ctx:status, /ctx:maintain, /ctx:catalog
-skills/             # context-prime, context-status, context-update (model-invocable)
+commands/           # /ctx:prime, /ctx:project, /ctx:ingest, /ctx:status, /ctx:maintain, /ctx:catalog
+skills/             # ctx-init (user-invocable), context-prime, context-status, context-update (model-invocable)
+  init/             # /ctx:init — scaffolds context vault, includes templates/
+  context-prime/    # Auto-prime project context at session start
+  context-status/   # Generate session briefing from vault data
+  context-update/   # Update vault pages after session changes
 scripts/            # pull-fireflies.py, format-transcript.py, statusline.py
-templates/          # CLAUDE.md section, rules, config — copied on install
 settings.json       # StatusLine config
 ```
 
@@ -34,5 +37,5 @@ All scripts use Python 3.9.6 stdlib only (no pip dependencies).
 ## Testing
 
 ```
-claude --plugin-dir ~/Code/client-ctx-sys
+claude --plugin-dir /path/to/client-mgt-market
 ```

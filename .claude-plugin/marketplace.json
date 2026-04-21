@@ -1,12 +1,12 @@
 {
-  "name": "rugved-tools",
+  "name": "client-mgt-market",
   "owner": {
     "name": "Rugved Ambekar"
   },
   "plugins": [
     {
       "name": "client-ctx-sys",
-      "source": "./",
+      "source": "./client-ctx-sys/",
       "description": "Client context system — file-first wiki with project-scoped auto-priming, meeting ingestion, and Obsidian-compatible knowledge graph."
     }
   ]
