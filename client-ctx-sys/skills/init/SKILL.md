@@ -41,7 +41,8 @@ context-vault/
 ├── docs/
 │   ├── meetings/
 │   ├── client-docs/
-│   └── deliverables/
+│   ├── deliverables/
+│   └── research/
 ├── config.yaml           # From templates/config.yaml, with project name filled in
 ├── dashboard.base        # Obsidian Bases dashboard
 └── .gitignore            # From templates/gitignore

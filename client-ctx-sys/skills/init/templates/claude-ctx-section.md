@@ -7,6 +7,7 @@ Client context system at `context-vault/`. Markdown wiki with Obsidian-compatibl
 - `context-vault/projects/{slug}/ctx-{slug}.md` — Project prime pages
 - `context-vault/decisions/`, `action-items/`, `strategies/`, `requirements/`, `people/` — Entity pages
 - `context-vault/docs/meetings/` — Meeting records with backlinks
+- `context-vault/docs/research/` — Protocol references, tech evaluations, general research (filed via `/ctx:catalog`)
 
 ### Priming
 Read `context-vault/index.md` to orient. When a user mentions a project, read its overview. Project overviews link to all relevant entities, people, meetings, and project documents.

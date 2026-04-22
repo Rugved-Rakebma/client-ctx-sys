@@ -56,7 +56,8 @@ context-vault/
 └── docs/
     ├── meetings/                     # Meeting records with backlinks
     ├── client-docs/                  # Documents from the client
-    └── deliverables/                 # Documents produced for the client
+    ├── deliverables/                 # Documents produced for the client
+    └── research/                     # Protocol refs, tech evaluations, general research
 ```
 
 Everything connects via Obsidian-compatible wikilinks: `[[decisions/auth-strategy|Auth Strategy]]`. The vault is a knowledge graph, not a flat folder of notes.

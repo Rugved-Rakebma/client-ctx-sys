@@ -29,7 +29,8 @@ context-vault/
 ├── docs/
 │   ├── meetings/{date-slug}.md       # Meeting records with backlinks
 │   ├── client-docs/                  # Documents from the client
-│   └── deliverables/                 # Documents produced for the client
+│   ├── deliverables/                 # Documents produced for the client
+│   └── research/                     # Protocol refs, tech evaluations, general research
 └── archive/                          # Completed/superseded items (created by maintain)
 ```
 
