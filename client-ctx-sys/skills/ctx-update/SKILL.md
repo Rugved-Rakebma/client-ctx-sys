@@ -1,5 +1,5 @@
 ---
-name: context-update
+name: ctx-update
 description: Update context vault pages after changes during a session
 allowed-tools: Bash, Read, Write, Edit, Glob, Grep
 user-invocable: false

@@ -138,7 +138,7 @@ Two mechanisms work together:
 
 2. **Project-scoped rules** (`.claude/rules/project-{slug}.md`) — Each has a `paths:` glob scoped to the project directory. When Claude reads files in that project, the rule loads and tells Claude to read the project context page. This is automatic — no command needed.
 
-The `context-prime` skill (model-invocable) supports this by silently loading context at session start.
+The `ctx-prime` skill (model-invocable) supports this by silently loading context at session start.
 
 ## Common Workflows
 
@@ -165,7 +165,7 @@ The `context-prime` skill (model-invocable) supports this by silently loading co
 If the `obsidian` plugin is installed, the context system gains enhanced capabilities:
 
 - **Dashboard** (`dashboard.base`) — Live queryable views of action items, decisions, people, and meetings. Auto-updates as entity pages change. Created by `/ctx:init`.
-- **Markdown quality** — Entity pages use Obsidian-flavored markdown conventions (callouts, block IDs, embeds) when creating/updating pages via ingest, convo, or context-update.
+- **Markdown quality** — Entity pages use Obsidian-flavored markdown conventions (callouts, block IDs, embeds) when creating/updating pages via ingest, convo, or ctx-update.
 - **Canvas graphs** — `/ctx:prime` can generate visual knowledge graphs for projects as `.canvas` files.
 - **Web content** — `/ctx:catalog` uses Defuddle for clean markdown extraction from web pages.
 

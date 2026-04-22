@@ -99,22 +99,22 @@ If it already contains the section, replace ONLY that section (from `## Context 
 
 ### 7. Configure statusline
 
-Read `.claude/settings.json` (or `.claude/settings.local.json`). The statusline command should use a glob `*` for the version segment so it auto-resolves to whatever version is installed:
+Read `.claude/settings.json` (or `.claude/settings.local.json`). The statusline command must resolve to the latest installed version, since multiple versions may coexist in the plugin cache:
 
 ```json
 {
   "statusLine": {
     "type": "command",
-    "command": "python3 ~/.claude/plugins/cache/client-mgt-market/client-ctx-sys/*/scripts/statusline.py context-vault/"
+    "command": "python3 \"$(ls -d ~/.claude/plugins/cache/client-mgt-market/client-ctx-sys/*/scripts/statusline.py | tail -1)\" context-vault/"
   }
 }
 ```
 
-The `*` glob matches the version directory in the plugin cache. This path survives plugin updates without needing to re-run init.
+The `$(ls -d ... | tail -1)` pattern finds all version directories via glob, then picks the latest (alphabetically last, which matches semver ordering). This handles the case where old versions remain in the cache after an update — a bare `*` glob would expand to multiple paths and break `python3`.
 
 **If no `statusLine` config exists**, add it and merge with existing settings.
 
-**If a `statusLine` config already exists**, check whether the command contains a version-specific path (e.g., `.../1.5.0/scripts/...` instead of `.../*/scripts/...`). If so, replace the version segment with `*` to make it update-proof. Also verify the marketplace and plugin name segments are correct (e.g., fix stale `rugved-tools` references to `client-mgt-market`). Preserve all other settings keys.
+**If a `statusLine` config already exists**, check whether the command uses a bare glob (`*/scripts/statusline.py`) or a pinned version (`1.5.0/scripts/...`). In either case, replace with the `$(ls -d ... | tail -1)` pattern above. Also fix stale marketplace names (e.g., `rugved-tools` → `client-mgt-market`). Preserve all other settings keys.
 
 ### 8. Stale footprint cleanup (migrated projects)
 

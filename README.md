@@ -68,7 +68,7 @@ Two mechanisms fire automatically — no commands needed:
 1. **Always-loaded rule** (`.claude/rules/context-vault.md`) — tells Claude the vault exists and how to use it. Every session.
 2. **Project-scoped rules** (`.claude/rules/project-{slug}.md`) — when Claude opens files in a project directory, the rule fires and loads that project's context page.
 
-Claude starts every session already oriented. The `context-prime` skill supports this silently in the background.
+Claude starts every session already oriented. The `ctx-prime` skill supports this silently in the background.
 
 ### Meeting Ingestion
 
@@ -129,9 +129,9 @@ All changes are proposed and require approval before writing.
 | Skill | Invocation | Purpose |
 |-------|-----------|---------|
 | `init` | `/ctx:init` (user) | Scaffold and configure — includes templates |
-| `context-prime` | Automatic (model) | Silently load project context at session start |
-| `context-status` | Automatic (model) | Generate session briefings from vault data |
-| `context-update` | Automatic (model) | Update vault pages when decisions or action items emerge during work |
+| `ctx-prime` | Automatic (model) | Silently load project context at session start |
+| `ctx-status` | Automatic (model) | Generate session briefings from vault data |
+| `ctx-update` | Automatic (model) | Update vault pages when decisions or action items emerge during work |
 
 Model-invocable skills fire proactively — Claude uses them without being asked when context changes during a session.
 

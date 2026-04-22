@@ -1,5 +1,5 @@
 ---
-name: context-prime
+name: ctx-prime
 description: Load project context from the context vault at session start
 allowed-tools: Bash, Read, Glob, Grep
 user-invocable: false

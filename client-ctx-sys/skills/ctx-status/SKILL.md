@@ -1,5 +1,5 @@
 ---
-name: context-status
+name: ctx-status
 description: Generate a session briefing from context vault data
 allowed-tools: Bash, Read, Glob, Grep
 user-invocable: false
