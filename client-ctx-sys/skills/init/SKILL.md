@@ -30,8 +30,8 @@ If `context-vault/` does not exist, create:
 
 ```
 context-vault/
-├── index.md              # Empty master index with header
-├── log.md                # Empty log with header
+├── index.md              # Master index with header and empty section tables
+├── log.md                # Log with header
 ├── projects/
 ├── decisions/
 ├── action-items/
@@ -43,11 +43,15 @@ context-vault/
 │   ├── client-docs/
 │   └── deliverables/
 ├── config.yaml           # From templates/config.yaml, with project name filled in
-├── dashboard.base        # From templates/dashboard.base
+├── dashboard.base        # Obsidian Bases dashboard
 └── .gitignore            # From templates/gitignore
 ```
 
-If `context-vault/` already exists but `dashboard.base` is missing, create it from `templates/dashboard.base`.
+**index.md and log.md:** Use Obsidian-flavored markdown conventions (`obsidian:obsidian-markdown` skill) if available — properties frontmatter, callouts for navigation hints, wikilinks for section anchors. Otherwise write plain markdown with standard YAML frontmatter and `[[wikilink]]` syntax.
+
+**dashboard.base:** Use the `obsidian:obsidian-bases` skill if available to generate the dashboard with views tailored to the projects found during detection (Step 1). If the skill is not available, copy from `templates/dashboard.base` as a static fallback.
+
+If `context-vault/` already exists but `dashboard.base` is missing, generate or copy it using the same logic above.
 
 If `context-vault/` already exists and `dashboard.base` exists, skip.
 

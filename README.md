@@ -9,7 +9,8 @@ Claude Code plugins for client project management — context tracking, meeting 
 | [client-ctx-sys](#client-ctx-sys) | `/ctx:*` | File-first wiki for client context with auto-priming, Fireflies ingestion, and Obsidian-compatible knowledge graph |
 
 ```
-claude plugin install client-ctx-sys@client-mgt-market
+/plugin marketplace add Rugved-Rakebma/client-mgt-market
+/plugin install client-ctx-sys@client-mgt-market
 ```
 
 ---
@@ -206,7 +207,8 @@ client-mgt-market/
 ## Install
 
 ```
-claude plugin install client-ctx-sys@client-mgt-market
+/plugin marketplace add Rugved-Rakebma/client-mgt-market
+/plugin install client-ctx-sys@client-mgt-market
 ```
 
 Then in any client project:
@@ -214,6 +216,12 @@ Then in any client project:
 ```
 /ctx:init
 ```
+
+## Inspiration
+
+This system implements [Andrej Karpathy's LLM Wiki](https://karpathy.ai/blog/llm-wiki) pattern — a persistent, compounding knowledge base where the LLM does all the bookkeeping. Raw sources go in, the LLM extracts entities, maintains cross-references, and keeps the wiki current. Humans curate and direct; the LLM handles the grunt work.
+
+The ctx plugin is a domain-specific instantiation for client project management, with Fireflies meeting transcripts as the primary source pipeline and Obsidian-compatible wikilinks as the graph layer.
 
 ## Author
 
