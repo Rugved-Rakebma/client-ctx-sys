@@ -1,6 +1,6 @@
 {
   "name": "ctx",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "Client context system — file-first wiki with project-scoped auto-priming, meeting ingestion, and Obsidian-compatible knowledge graph.",
   "author": { "name": "Rugved Ambekar" },
   "license": "MIT",
