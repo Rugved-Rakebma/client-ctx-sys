@@ -30,7 +30,7 @@ settings.json       # StatusLine config
 |--------|---------|
 | `scripts/pull-fireflies.py` | Fetch transcript from Fireflies API (stdlib only) |
 | `scripts/format-transcript.py` | Format raw JSON into speaker-attributed markdown |
-| `scripts/statusline.py` | Status bar — reads context-vault, outputs one-liner |
+| `scripts/statusline.py` | Two-line status bar — session info from stdin JSON + vault state from filesystem |
 
 All scripts use Python 3.9.6 stdlib only (no pip dependencies).
 

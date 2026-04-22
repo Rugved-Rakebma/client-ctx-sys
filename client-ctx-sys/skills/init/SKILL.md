@@ -99,20 +99,22 @@ If it already contains the section, replace ONLY that section (from `## Context 
 
 ### 7. Configure statusline
 
-Read `.claude/settings.json` (or `.claude/settings.local.json`). If no `statusLine` config exists, add:
+Read `.claude/settings.json` (or `.claude/settings.local.json`). The statusline command should use a glob `*` for the version segment so it auto-resolves to whatever version is installed:
 
 ```json
 {
   "statusLine": {
     "type": "command",
-    "command": "python3 ${CLAUDE_PLUGIN_ROOT}/scripts/statusline.py context-vault/"
+    "command": "python3 ~/.claude/plugins/cache/client-mgt-market/client-ctx-sys/*/scripts/statusline.py context-vault/"
   }
 }
 ```
 
-`${CLAUDE_PLUGIN_ROOT}` resolves to this plugin's installed path. The model sees the concrete path and writes it into settings.json.
+The `*` glob matches the version directory in the plugin cache. This path survives plugin updates without needing to re-run init.
 
-If the file already has other settings, merge the `statusLine` key without overwriting existing config. If a `statusLine` config already exists, skip.
+**If no `statusLine` config exists**, add it and merge with existing settings.
+
+**If a `statusLine` config already exists**, check whether the command contains a version-specific path (e.g., `.../1.5.0/scripts/...` instead of `.../*/scripts/...`). If so, replace the version segment with `*` to make it update-proof. Also verify the marketplace and plugin name segments are correct (e.g., fix stale `rugved-tools` references to `client-mgt-market`). Preserve all other settings keys.
 
 ### 8. Stale footprint cleanup (migrated projects)
 
