@@ -16,10 +16,13 @@ Read `context-vault/index.md` to orient. When a user mentions a project, read it
 - Decisions made → create `context-vault/decisions/{slug}.md`, add wikilink to project overview
 - Action items identified → create `context-vault/action-items/{slug}.md` with owner + status
 - Documents created → link from relevant project overview
-- All internal links use Obsidian wikilinks: `[[type/slug|Display Text]]`
+- ALL links in vault pages use Obsidian wikilinks — never raw file paths. Applies to vault entities AND project files: `[[path/to/file|Display Text]]`
 
 ### Entity Frontmatter
 All entity pages use YAML frontmatter with: title, type, slug, status (for action-items), source, created, updated.
+
+### Corrections
+When corrected on a ctx system mistake, append to `context-vault/ctx-corrections.md` with date and what went wrong. Read this file at session start to avoid repeating errors.
 
 ### Commands
 `/ctx:prime`, `/ctx:project`, `/ctx:ingest`, `/ctx:status`, `/ctx:maintain`, `/ctx:catalog`

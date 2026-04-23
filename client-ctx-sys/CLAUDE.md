@@ -15,13 +15,12 @@ Two layers:
 
 ```
 commands/           # /ctx:prime, /ctx:project, /ctx:ingest, /ctx:status, /ctx:maintain, /ctx:catalog
-skills/             # ctx-init (user-invocable), ctx-prime, ctx-status, ctx-update (model-invocable)
+skills/
   init/             # /ctx:init — scaffolds context vault, includes templates/
-  ctx-prime/    # Auto-prime project context at session start
-  ctx-status/   # Generate session briefing from vault data
-  ctx-update/   # Update vault pages after session changes
+  ctx-prime/        # Auto-prime project context at session start (model-invocable)
+  ctx-status/       # Generate session briefing from vault data (model-invocable)
+  ctx-update/       # Update vault pages after session changes (model-invocable)
 scripts/            # pull-fireflies.py, format-transcript.py, statusline.py
-settings.json       # StatusLine config
 ```
 
 ## Scripts

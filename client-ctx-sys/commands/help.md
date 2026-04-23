@@ -100,13 +100,16 @@ The test: would you open a separate Claude session to work on it? If yes → pro
 ## Conventions
 
 ### Wikilinks
-All internal links use Obsidian wikilinks: `[[type/slug|Display Text]]`
+ALL links in vault pages use Obsidian wikilinks — including links to files outside the vault (project docs, research, specs). Never use raw file paths or markdown links in vault pages.
+
+Format: `[[path/to/file|Display Text]]`
 
 Examples:
-- `[[decisions/auth-strategy|Auth Strategy Decision]]`
-- `[[people/rugved-ambekar|Rugved Ambekar]]`
-- `[[docs/meetings/2026-04-07-sync|April 7 Sync]]`
-- `[[projects/wa-sales-command/ctx-wa-sales-command|Sales Command Center]]`
+- `[[decisions/auth-strategy|Auth Strategy Decision]]` — vault entity
+- `[[people/rugved-ambekar|Rugved Ambekar]]` — vault entity
+- `[[docs/meetings/2026-04-07-sync|April 7 Sync]]` — vault meeting doc
+- `[[projects/wa-sales-command/ctx-wa-sales-command|Sales Command Center]]` — vault project page
+- `[[projects/rd-mcp-server/nfpa/vision|NFPA Integration Vision]]` — project file outside vault
 
 ### Slugs
 Lowercase, kebab-case.
