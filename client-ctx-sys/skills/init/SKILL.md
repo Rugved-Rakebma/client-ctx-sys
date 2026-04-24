@@ -123,7 +123,7 @@ Check for remnants of the old KB CLI system. Only relevant for projects migratin
 
 - Justfile with `kb-*` or `kb_cli` recipes → report
 - `.claude/settings.local.json` or `.claude/settings.json` with `kb-*` or `k-base:*` permissions → report
-- `config.yaml` with `fireflies:` section from old system → report
+- `config.yaml` with old `kb_cli` or `knowledge-base` references → report (note: `fireflies:` section is current and expected)
 - CLAUDE.md with `## Knowledge Base` section (old, not `## Context Vault`) → report
 - Obsidian workspace files (`.obsidian/workspace.json`) with `.knowledge-base/` or `knowledge-base/` paths → report
 - `people/` alias stubs with `alias_of` frontmatter → report (should be deleted if canonical page exists)
